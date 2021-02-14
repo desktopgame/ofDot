@@ -6,6 +6,7 @@
 class SleepCommand : public Command {
 public:
 	explicit SleepCommand(int id, float s);
+	void reset() override;
 	void update(std::shared_ptr<Particle>& particle, ofEasyCam& easyCam, float deltaTime) override;
 	bool isFinished() override;
 	float s;
