@@ -15,7 +15,7 @@ const draw = (drawCommands, cameraCommands) => {
         }
     }
     cameraCommands.push(dot.sleep(10.0));
-    cameraCommands.push(dot.cameraPosition({x: 0.1, y: 0, z: -10}));
+    cameraCommands.push(dot.cameraTranslate({x: 0.5, y: 0, z: 0}));
 }
 
 const main = () => {

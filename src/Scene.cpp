@@ -9,6 +9,8 @@
 #include "ParallelCommand.h"
 #include "CameraPositionCommand.h"
 #include "CameraLookAtCommand.h"
+#include "CameraTranslateCommand.h"
+#include "CameraRotateCommand.h"
 
 Scene::Scene(const std::string& filename) :
 	m_filename(filename),
@@ -109,6 +111,13 @@ std::shared_ptr<Command> Scene::parseCommand(ofJson& json) {
 		ret = std::make_shared<CameraPositionCommand>(0, pos);
 	} else if (targetName == "cameraLookAt") {
 		ret = std::make_shared<CameraLookAtCommand>(0, pos);
+	} else if (targetName == "cameraTranslate") {
+		glm::vec3 offset = parseVec3(json["offset"], "x", "y", "z");
+		ret = std::make_shared<CameraTranslateCommand>(0, offset);
+	} else if (targetName == "cameraRotate") {
+		glm::vec3 point = parseVec3(json["point"], "x", "y", "z");
+		float radian = json["radian"].get<float>();
+		ret = std::make_shared<CameraRotateCommand>(0, point, radian);
 	}
 	return ret;
 }

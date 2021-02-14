@@ -68,13 +68,26 @@ const cameraPosition = (position) => {
     return {
         name: "cameraPosition",
         position
-    }
+    };
 };
 const cameraLookAt = (position) => {
     return {
         name: "cameraLookAt",
         position
-    }
+    };
+};
+const cameraTranslate = (offset) => {
+    return {
+        name: "cameraTranslate",
+        offset
+    };
+};
+const cameraRotate = (point, radian) => {
+    return {
+        name: "cameraTranslate",
+        point,
+        radian
+    };
 };
 module.exports = {
     sleep,
@@ -87,5 +100,7 @@ module.exports = {
     colorTo,
     parallel,
     cameraPosition,
-    cameraLookAt
+    cameraLookAt,
+    cameraTranslate,
+    cameraRotate
 };
