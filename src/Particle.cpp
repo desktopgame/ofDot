@@ -37,7 +37,7 @@ void Particle::compile() {
 		return;
 	}
 	this->m_dirty = false;
-	// �o�b�t�@�X�V
+	// バッファの更新
 	if (!m_positionBO.isAllocated()) {
 		m_positionBO.allocate();
 	}
@@ -50,7 +50,7 @@ void Particle::compile() {
 	m_positionBO.setData(m_positionVec, GL_STATIC_DRAW);
 	m_scaleBO.setData(m_scaleVec, GL_STATIC_DRAW);
 	m_colorBO.setData(m_colorVec, GL_STATIC_DRAW);
-	// �e�o�b�t�@�̊��蓖��
+	// バッファの割り当て
 	const float stride = sizeof(float) * 3;
 	m_vbo.setAttributeBuffer(k_positionIndex, m_positionBO, 3, stride);
 	m_vbo.setAttributeDivisor(k_positionIndex, 1);
