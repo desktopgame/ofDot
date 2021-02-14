@@ -10,6 +10,48 @@
     <ClCompile Include="src\Particle.cpp">
       <Filter>src</Filter>
     </ClCompile>
+    <ClCompile Include="src\Command.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\CommandQueue.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\PutCommand.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Scene.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ColorCommand.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\PositionCommand.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ScaleCommand.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SleepCommand.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ListCommand.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ParallelCommand.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\CameraLookAtCommand.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\CameraPositionCommand.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\CameraRotateCommand.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\CameraTranslateCommand.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="src">
@@ -21,6 +63,48 @@
       <Filter>src</Filter>
     </ClInclude>
     <ClInclude Include="src\Particle.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Command.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\CommandQueue.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\PutCommand.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Scene.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ColorCommand.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\PositionCommand.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ScaleCommand.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\SleepCommand.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ListCommand.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ParallelCommand.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\CameraLookAtCommand.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\CameraPositionCommand.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\CameraRotateCommand.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\CameraTranslateCommand.h">
       <Filter>src</Filter>
     </ClInclude>
   </ItemGroup>

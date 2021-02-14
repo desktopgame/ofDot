@@ -180,13 +180,41 @@
     <PostBuildEvent />
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\CameraLookAtCommand.cpp" />
+    <ClCompile Include="src\CameraPositionCommand.cpp" />
+    <ClCompile Include="src\CameraRotateCommand.cpp" />
+    <ClCompile Include="src\CameraTranslateCommand.cpp" />
+    <ClCompile Include="src\ColorCommand.cpp" />
+    <ClCompile Include="src\Command.cpp" />
+    <ClCompile Include="src\CommandQueue.cpp" />
+    <ClCompile Include="src\ListCommand.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\ofApp.cpp" />
+    <ClCompile Include="src\ParallelCommand.cpp" />
     <ClCompile Include="src\Particle.cpp" />
+    <ClCompile Include="src\PositionCommand.cpp" />
+    <ClCompile Include="src\PutCommand.cpp" />
+    <ClCompile Include="src\ScaleCommand.cpp" />
+    <ClCompile Include="src\Scene.cpp" />
+    <ClCompile Include="src\SleepCommand.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\CameraLookAtCommand.h" />
+    <ClInclude Include="src\CameraPositionCommand.h" />
+    <ClInclude Include="src\CameraRotateCommand.h" />
+    <ClInclude Include="src\CameraTranslateCommand.h" />
+    <ClInclude Include="src\ColorCommand.h" />
+    <ClInclude Include="src\Command.h" />
+    <ClInclude Include="src\CommandQueue.h" />
+    <ClInclude Include="src\ListCommand.h" />
     <ClInclude Include="src\ofApp.h" />
+    <ClInclude Include="src\ParallelCommand.h" />
     <ClInclude Include="src\Particle.h" />
+    <ClInclude Include="src\PositionCommand.h" />
+    <ClInclude Include="src\PutCommand.h" />
+    <ClInclude Include="src\ScaleCommand.h" />
+    <ClInclude Include="src\Scene.h" />
+    <ClInclude Include="src\SleepCommand.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="$(OF_ROOT)\libs\openFrameworksCompiled\project\vs\openframeworksLib.vcxproj">
