@@ -35,6 +35,8 @@ void ofApp::update() {
 	if (m_frames++ >= 60) {
 		if (m_scene.refresh()) {
 			m_sphereParticle->clear();
+			m_easyCam.setPosition(glm::vec3(0, 0, -10));
+			m_easyCam.lookAt(glm::vec3(0, 0, 0), glm::vec3(0, 1, 0));
 		}
 		m_frames = 0;
 	}
