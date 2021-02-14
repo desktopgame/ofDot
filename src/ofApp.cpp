@@ -8,6 +8,7 @@ ofApp::ofApp() :
 	m_scene("dots.json"),
 	m_easyCam(),
 	m_shader(),
+	m_frames(0),
 	m_init(false)
 {
 }
@@ -31,6 +32,10 @@ void ofApp::setup() {
 
 //--------------------------------------------------------------
 void ofApp::update() {
+	if (m_frames++ >= 60) {
+		m_scene.rehash();
+		m_frames = 0;
+	}
 	m_scene.update(m_sphereParticle, static_cast<float>(ofGetLastFrameTime()));
 }
 

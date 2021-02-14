@@ -47,6 +47,7 @@ void Scene::rehash() {
 		m_commandQueueVec.emplace_back(cmdQueue);
 	}
 	this->m_text = newText;
+	std::cout << "reloaded." << std::endl;
 }
 
 void Scene::update(std::shared_ptr<Particle> particle, float deltaTime) {
@@ -70,7 +71,7 @@ std::shared_ptr<Command> Scene::parseCommand(ofJson& json) {
 	glm::vec3 pos = parseVec3(json["position"], "x", "y", "z");
 	glm::vec3 scale = parseVec3(json["scale"], "x", "y", "z");
 	glm::vec3 color = parseVec3(json["color"], "r", "g", "b");
-	if (targetName == "put") {
+	if (targetName == "dot") {
 		ret = std::make_shared<PutCommand>(id,pos,scale,color);
 	} else if (targetName == "position") {
 		ret = std::make_shared<PositionCommand>(id, pos);

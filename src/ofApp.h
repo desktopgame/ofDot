@@ -32,6 +32,7 @@ class ofApp : public ofBaseApp{
 		ofEasyCam m_easyCam;
 		ofShader m_shader;
 		bool m_init;
+		int m_frames;
 };
 
 void onError(unsigned int source, unsigned int type,

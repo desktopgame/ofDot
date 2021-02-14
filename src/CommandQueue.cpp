@@ -20,8 +20,12 @@ void CommandQueue::update(std::shared_ptr<Particle>& particle, float deltaTime) 
 		return;
 	}
 	particle->reserve(m_maxId + 1);
-	m_commands.at(m_offset)->update(particle, deltaTime);
-	if (m_commands.at(m_offset)->isFinished()) {
-		m_offset++;
+	while (m_offset < m_commands.size()) {
+		m_commands.at(m_offset)->update(particle, deltaTime);
+		if (m_commands.at(m_offset)->isFinished()) {
+			m_offset++;
+		} else {
+			break;
+		}
 	}
 }
