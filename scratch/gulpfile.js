@@ -18,7 +18,7 @@ function string_src(filename, string) {
 gulp.task('reload', (done) => {
     decache('./draw');
     let draw = require('./draw')
-    const ret = string_src("dots.json", draw.main())
+    const ret = string_src("dot.json", draw.main())
       .pipe(gulp.dest('../bin/data/'));
     done();
     draw = null;

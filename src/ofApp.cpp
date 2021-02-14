@@ -5,7 +5,7 @@
 ofApp::ofApp() :
 	m_sphereMesh(ofMesh::sphere(0.1f, 12, ofPrimitiveMode::OF_PRIMITIVE_TRIANGLES)),
 	m_sphereParticle(),
-	m_scene("dots.json"),
+	m_scene("dot.json"),
 	m_easyCam(),
 	m_shader(),
 	m_frames(0),
@@ -22,7 +22,7 @@ void ofApp::setup() {
 	::srand((unsigned int)::time(NULL));
 	m_sphereParticle = std::make_shared<Particle>(m_sphereMesh, GL_TRIANGLES);
 	m_scene.refresh();
-	if (!m_shader.load("dots.vert", "dots.frag")) {
+	if (!m_shader.load("dot.vert", "dot.frag")) {
 		::abort();
 	}
 	m_easyCam.setPosition(glm::vec3(0, 0, -10));
