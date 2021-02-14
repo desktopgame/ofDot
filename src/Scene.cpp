@@ -6,6 +6,7 @@
 #include "ColorCommand.h"
 #include "SleepCommand.h"
 #include "ListCommand.h"
+#include "ParallelCommand.h"
 
 Scene::Scene(const std::string& filename) :
 	m_filename(filename),
@@ -59,14 +60,23 @@ std::shared_ptr<Command> Scene::parseCommandRec(ofJson& json) {
 		std::vector<std::shared_ptr<Command>> commands;
 		ofJson& list = json["list"];
 		for (int k = 0; k < list.size(); k++) {
-			auto cmdInst = parseCommand(list.at(k));
+			auto cmdInst = parseCommandRec(list.at(k));
 			if (cmdInst) {
 				commands.emplace_back(cmdInst);
 			}
 		}
 		return std::make_shared<ListCommand>(0, commands);
-	}
-	else {
+	} else if(json.contains("name") && json["name"].get<std::string>() == "parallel") {
+		std::vector<std::shared_ptr<Command>> commands;
+		ofJson& list = json["list"];
+		for (int k = 0; k < list.size(); k++) {
+			auto cmdInst = parseCommandRec(list.at(k));
+			if (cmdInst) {
+				commands.emplace_back(cmdInst);
+			}
+		}
+		return std::make_shared<ParallelCommand>(0, commands);
+	} else {
 		return parseCommand(json);
 	}
 }
@@ -76,15 +86,12 @@ std::shared_ptr<Command> Scene::parseCommand(ofJson& json) {
 	}
 	std::string name = json["name"].get<std::string>();
 	std::string targetName = name;
-	if (name[0] == '!') {
-		targetName = name.substr(1);
-	}
 	std::shared_ptr<Command> ret = nullptr;
 	int id = json.contains("id") ? json["id"].get<int>() : -1;
 	id++;
 	glm::vec3 pos = parseVec3(json["position"], "x", "y", "z");
 	glm::vec3 scale = parseVec3(json["scale"], "x", "y", "z");
-	glm::vec3 color = parseVec3(json["color"], "r", "g", "b");
+	glm::vec3 color = parseVec3(json["color"], "x", "y", "z");
 	if (targetName == "dot") {
 		ret = std::make_shared<PutCommand>(id,pos,scale,color);
 	} else if (targetName == "position") {
@@ -95,9 +102,6 @@ std::shared_ptr<Command> Scene::parseCommand(ofJson& json) {
 		ret = std::make_shared<ColorCommand>(id, color);
 	} else if (targetName == "sleep") {
 		ret = std::make_shared<SleepCommand>(0, json["s"].get<float>());
-	}
-	if (name[0] == '!') {
-
 	}
 	return ret;
 }
