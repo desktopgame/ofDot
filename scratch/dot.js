@@ -1,11 +1,12 @@
 const lerp = require('lerp');
-
+// utility functions
 const sleep = (s) => {
     return {
         name: "sleep",
         s
     };
 }
+// draw functions
 const position = (id, position) => {
     return {
         name: "position",
@@ -62,6 +63,19 @@ const parallel = (list) => {
         list
     };
 };
+// camera functions
+const cameraPosition = (position) => {
+    return {
+        name: "cameraPosition",
+        position
+    }
+};
+const cameraLookAt = (position) => {
+    return {
+        name: "cameraLookAt",
+        position
+    }
+};
 module.exports = {
     sleep,
     position,
@@ -71,5 +85,7 @@ module.exports = {
     moveTo,
     scaleTo,
     colorTo,
-    parallel
+    parallel,
+    cameraPosition,
+    cameraLookAt
 };

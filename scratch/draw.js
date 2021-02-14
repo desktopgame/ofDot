@@ -1,30 +1,36 @@
 const fs = require('fs');
 const dot = require('./dot');
 
-const draw = (commands) => {
+const draw = (drawCommands, cameraCommands) => {
     //
     // write your code in here.
     //
     let id = 0;
     for(let x=-10; x<10; x++) {
         for(let y=-10; y<10; y++) {
-            commands.push(
+            drawCommands.push(
                 dot.dot(id, {x, y, z: 0}, {x: 1, y: 1, z: 1}, {x: 1, y: 1, z: 0})
             );
             id++;
         }
     }
+    cameraCommands.push(dot.sleep(10.0));
+    cameraCommands.push(dot.cameraPosition({x: 0.1, y: 0, z: -10}));
 }
 
 const main = () => {
-    const commands = [];
-    draw(commands)
+    const drawCommands = [];
+    const cameraCommands = [];
+    draw(drawCommands, cameraCommands);
     console.log('update')
     return JSON.stringify(
         {
             "queues": [
                 {
-                    commands
+                    commands: drawCommands
+                },
+                {
+                    commands: cameraCommands
                 }
             ]
         }

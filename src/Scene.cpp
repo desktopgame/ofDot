@@ -7,6 +7,8 @@
 #include "SleepCommand.h"
 #include "ListCommand.h"
 #include "ParallelCommand.h"
+#include "CameraPositionCommand.h"
+#include "CameraLookAtCommand.h"
 
 Scene::Scene(const std::string& filename) :
 	m_filename(filename),
@@ -103,6 +105,10 @@ std::shared_ptr<Command> Scene::parseCommand(ofJson& json) {
 		ret = std::make_shared<ColorCommand>(id, color);
 	} else if (targetName == "sleep") {
 		ret = std::make_shared<SleepCommand>(0, json["s"].get<float>());
+	} else if (targetName == "cameraPosition") {
+		ret = std::make_shared<CameraPositionCommand>(0, pos);
+	} else if (targetName == "cameraLookAt") {
+		ret = std::make_shared<CameraLookAtCommand>(0, pos);
 	}
 	return ret;
 }
