@@ -5,6 +5,7 @@ const draw = (drawCommands, cameraCommands) => {
     //
     // write your code in here.
     //
+    cameraCommands.push(dot.cameraPosition({x: 0, y: 0, z: -20}));
     let id = 0;
     for(let x=-10; x<10; x++) {
         for(let y=-10; y<10; y++) {
@@ -14,10 +15,21 @@ const draw = (drawCommands, cameraCommands) => {
             id++;
         }
     }
-    cameraCommands.push(dot.sleep(3.0));
-    cameraCommands.push(dot.cameraTranslate({x: 0.5, y: 0, z: 0}));
-    cameraCommands.push(dot.sleep(3.0));
-    cameraCommands.push(dot.cameraRotateD({x:0, y: 1, z: 0}, 15));
+    // 全ての球体の色を同時に変える
+    id = 0;
+    const colorChangeCommands = [];
+    for(let x=-10; x<10; x++) {
+        for(let y=-10; y<10; y++) {
+            colorChangeCommands.push(
+                dot.colorTo(id,
+                    {x: 1, y: 1, z: 0},
+                    {x: 0, y: 1, z: 1},
+                    1.0)
+                );
+            id++;
+        }
+    }
+    drawCommands.push(dot.parallel(colorChangeCommands));
 }
 
 const main = () => {
