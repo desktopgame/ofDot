@@ -14,8 +14,10 @@ const draw = (drawCommands, cameraCommands) => {
             id++;
         }
     }
-    cameraCommands.push(dot.sleep(10.0));
+    cameraCommands.push(dot.sleep(3.0));
     cameraCommands.push(dot.cameraTranslate({x: 0.5, y: 0, z: 0}));
+    cameraCommands.push(dot.sleep(3.0));
+    cameraCommands.push(dot.cameraRotateD({x:0, y: 1, z: 0}, 15));
 }
 
 const main = () => {

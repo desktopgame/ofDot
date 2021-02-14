@@ -82,10 +82,18 @@ const cameraTranslate = (offset) => {
         offset
     };
 };
-const cameraRotate = (point, radian) => {
+const cameraRotateD = (v, radian) => {
+    radian = radian * (3.14 / 180.0);
     return {
-        name: "cameraTranslate",
-        point,
+        name: "cameraRotate",
+        point: { x: v.x, y: v.y, z: v.z },
+        radian
+    };
+};
+const cameraRotateR = (v, radian) => {
+    return {
+        name: "cameraRotate",
+        point: { x: v.x, y: v.y, z: v.z },
         radian
     };
 };
@@ -102,5 +110,6 @@ module.exports = {
     cameraPosition,
     cameraLookAt,
     cameraTranslate,
-    cameraRotate
+    cameraRotateD,
+    cameraRotateR,
 };
