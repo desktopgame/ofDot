@@ -4,6 +4,8 @@
 
 ofApp::ofApp() :
 	m_sphereMesh(ofMesh::sphere(0.1f, 12, ofPrimitiveMode::OF_PRIMITIVE_TRIANGLES)),
+	m_sphereParticle(),
+	m_scene("dots.json"),
 	m_easyCam(),
 	m_shader(),
 	m_init(false)
@@ -17,31 +19,8 @@ void ofApp::setup() {
 	glDebugMessageCallback(reinterpret_cast<GLDEBUGPROC>(onError), 0);
 #endif
 	::srand((unsigned int)::time(NULL));
-	this->m_sphereParticle = std::make_shared<Particle>(m_sphereMesh, GL_TRIANGLES);
-	this->m_sphereParticle->reserve(20 * 20 * 20);
-	this->m_sphereParticle->compile();
-	int index = 0;
-	for (int x = -10; x < 10; x++) {
-		for (int y = -10; y < 10; y++) {
-			for (int z = -10; z < 10; z++) {
-				double min = 0.0;
-				double max = 1.0;
-				float r = static_cast<float>(min + (rand() * (max - min + 1.0) / (1.0 + RAND_MAX)));
-				float g = static_cast<float>(min + (rand() * (max - min + 1.0) / (1.0 + RAND_MAX)));
-				float b = static_cast<float>(min + (rand() * (max - min + 1.0) / (1.0 + RAND_MAX)));
-				if (x == -10 || y == -10 || z == -10 || x == 9 || y == 9 || z == 9) {
-					r = g = b = 0.0f;
-				}
-				m_sphereParticle->update(
-					index++,
-					glm::vec3(x, y, z),
-					glm::vec3(1, 1, 1),
-					glm::vec3(r, g, b)
-				);
-			}
-		}
-	}
-
+	m_sphereParticle = std::make_shared<Particle>(m_sphereMesh, GL_TRIANGLES);
+	m_scene.rehash();
 	if (!m_shader.load("dots.vert", "dots.frag")) {
 		::abort();
 	}
@@ -52,7 +31,7 @@ void ofApp::setup() {
 
 //--------------------------------------------------------------
 void ofApp::update() {
-
+	m_scene.update(m_sphereParticle, static_cast<float>(ofGetLastFrameTime()));
 }
 
 //--------------------------------------------------------------

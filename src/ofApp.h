@@ -2,6 +2,7 @@
 
 #include "ofMain.h"
 #include "Particle.h"
+#include "Scene.h"
 
 class ofApp : public ofBaseApp{
 
@@ -26,6 +27,7 @@ class ofApp : public ofBaseApp{
 	private:
 		ofMesh m_sphereMesh;
 		std::shared_ptr<Particle> m_sphereParticle;
+		Scene m_scene;
 
 		ofEasyCam m_easyCam;
 		ofShader m_shader;
