@@ -4,6 +4,7 @@
 #include "PositionCommand.h"
 #include "ScaleCommand.h"
 #include "ColorCommand.h"
+#include "SleepCommand.h"
 
 Scene::Scene(const std::string& filename) :
 	m_filename(filename),
@@ -55,7 +56,7 @@ void Scene::update(std::shared_ptr<Particle> particle, float deltaTime) {
 }
 // private
 std::shared_ptr<Command> Scene::parseCommand(ofJson& json) {
-	if (!json.contains("name") || !json.contains("id")) {
+	if (!json.contains("name")) {
 		return nullptr;
 	}
 	std::string name = json["name"].get<std::string>();
@@ -64,10 +65,7 @@ std::shared_ptr<Command> Scene::parseCommand(ofJson& json) {
 		targetName = name.substr(1);
 	}
 	std::shared_ptr<Command> ret = nullptr;
-	int id = json["id"].get<int>();
-	if (id < 0) {
-		return nullptr;
-	}
+	int id = json.contains("id") ? json["id"].get<int>() : -1;
 	id++;
 	glm::vec3 pos = parseVec3(json["position"], "x", "y", "z");
 	glm::vec3 scale = parseVec3(json["scale"], "x", "y", "z");
@@ -80,6 +78,8 @@ std::shared_ptr<Command> Scene::parseCommand(ofJson& json) {
 		ret = std::make_shared<ScaleCommand>(id, scale);
 	} else if (targetName == "color") {
 		ret = std::make_shared<ColorCommand>(id, color);
+	} else if (targetName == "sleep") {
+		ret = std::make_shared<SleepCommand>(0, json["s"].get<float>());
 	}
 	if (name[0] == '!') {
 

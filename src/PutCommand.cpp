@@ -14,5 +14,5 @@ void PutCommand::update(std::shared_ptr<Particle>& particle, float deltaTime) {
 }
 
 bool PutCommand::isFinished() {
-	return false;
+	return true;
 }
