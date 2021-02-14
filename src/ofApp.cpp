@@ -8,8 +8,7 @@ ofApp::ofApp() :
 	m_scene("dot.json"),
 	m_easyCam(),
 	m_shader(),
-	m_frames(0),
-	m_init(false)
+	m_frames(0)
 {
 }
 
@@ -27,7 +26,6 @@ void ofApp::setup() {
 	}
 	m_easyCam.setPosition(glm::vec3(0, 0, -10));
 	m_easyCam.lookAt(glm::vec3(0, 0, 0), glm::vec3(0, 1, 0));
-	this->m_init = true;
 }
 
 //--------------------------------------------------------------
@@ -45,9 +43,6 @@ void ofApp::update() {
 
 //--------------------------------------------------------------
 void ofApp::draw() {
-	if (!m_init) {
-		return;
-	}
 	m_shader.begin();
 	m_easyCam.begin();
 	m_sphereParticle->draw();
