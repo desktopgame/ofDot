@@ -1,9 +1,10 @@
 const fs = require('fs');
 const dots = require('./dots');
-//
-// write your code in below.
-//
+
 const draw = (commands) => {
+    //
+    // write your code in here.
+    //
     let id = 0;
     for(let x=-10; x<10; x++) {
         for(let y=-10; y<10; y++) {
@@ -14,9 +15,7 @@ const draw = (commands) => {
         }
     }
 }
-//
-// update json
-//
+
 const main = () => {
     const commands = [];
     draw(commands)
@@ -31,8 +30,6 @@ const main = () => {
         }
     , null, "\t");
 }
+
 fs.writeFileSync("../bin/data/dots.json", main());
-//
-// modules
-//
 module.exports = { main }
