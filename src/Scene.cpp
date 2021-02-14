@@ -1,6 +1,9 @@
 #include "Scene.h"
 #include <ofFileUtils.h>
 #include "PutCommand.h"
+#include "PositionCommand.h"
+#include "ScaleCommand.h"
+#include "ColorCommand.h"
 
 Scene::Scene(const std::string& filename) :
 	m_filename(filename),
@@ -71,6 +74,12 @@ std::shared_ptr<Command> Scene::parseCommand(ofJson& json) {
 	glm::vec3 color = parseVec3(json["color"], "r", "g", "b");
 	if (targetName == "put") {
 		ret = std::make_shared<PutCommand>(id,pos,scale,color);
+	} else if (targetName == "position") {
+		ret = std::make_shared<PositionCommand>(id, pos);
+	} else if (targetName == "scale") {
+		ret = std::make_shared<ScaleCommand>(id, scale);
+	} else if (targetName == "color") {
+		ret = std::make_shared<ColorCommand>(id, color);
 	}
 	if (name[0] == '!') {
 
