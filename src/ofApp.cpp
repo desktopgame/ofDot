@@ -21,7 +21,7 @@ void ofApp::setup() {
 #endif
 	::srand((unsigned int)::time(NULL));
 	m_sphereParticle = std::make_shared<Particle>(m_sphereMesh, GL_TRIANGLES);
-	m_scene.rehash();
+	m_scene.refresh();
 	if (!m_shader.load("dots.vert", "dots.frag")) {
 		::abort();
 	}
@@ -33,7 +33,9 @@ void ofApp::setup() {
 //--------------------------------------------------------------
 void ofApp::update() {
 	if (m_frames++ >= 60) {
-		m_scene.rehash();
+		if (m_scene.refresh()) {
+			m_sphereParticle->clear();
+		}
 		m_frames = 0;
 	}
 	m_scene.update(m_sphereParticle, static_cast<float>(ofGetLastFrameTime()));

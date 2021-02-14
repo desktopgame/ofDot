@@ -15,21 +15,21 @@ Scene::Scene(const std::string& filename) :
 {
 
 }
-void Scene::rehash() {
+bool Scene::refresh() {
 	ofFile file(m_filename);
 	if (!file.exists()) {
-		return;
+		return false;
 	}
 	std::vector<std::string> linesOfTheFile;
 	ofBuffer buffer = ofBufferFromFile(file);
 	std::string newText = buffer;
 	if (m_text == newText) {
-		return;
+		return false;
 	}
 	ofJson json = ofJson::parse(newText);
 	m_commandQueueVec.clear();
 	if (json.find("queues") == json.end()) {
-		return;
+		return false;
 	}
 	ofJson& queues = json["queues"];
 	for (int i = 0; i < static_cast<int>(queues.size()); i++) {
@@ -47,6 +47,7 @@ void Scene::rehash() {
 	}
 	this->m_text = newText;
 	std::cout << "reloaded." << std::endl;
+	return true;
 }
 
 void Scene::update(std::shared_ptr<Particle> particle, float deltaTime) {
@@ -59,7 +60,7 @@ std::shared_ptr<Command> Scene::parseCommandRec(ofJson& json) {
 	if (json.contains("name") && json["name"].get<std::string>() == "list") {
 		std::vector<std::shared_ptr<Command>> commands;
 		ofJson& list = json["list"];
-		for (int k = 0; k < list.size(); k++) {
+		for (int k = 0; k < static_cast<int>(list.size()); k++) {
 			auto cmdInst = parseCommandRec(list.at(k));
 			if (cmdInst) {
 				commands.emplace_back(cmdInst);
@@ -69,7 +70,7 @@ std::shared_ptr<Command> Scene::parseCommandRec(ofJson& json) {
 	} else if(json.contains("name") && json["name"].get<std::string>() == "parallel") {
 		std::vector<std::shared_ptr<Command>> commands;
 		ofJson& list = json["list"];
-		for (int k = 0; k < list.size(); k++) {
+		for (int k = 0; k < static_cast<int>(list.size()); k++) {
 			auto cmdInst = parseCommandRec(list.at(k));
 			if (cmdInst) {
 				commands.emplace_back(cmdInst);

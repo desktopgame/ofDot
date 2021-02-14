@@ -108,6 +108,9 @@ void Particle::compile() {
 	if (!m_colorBO.isAllocated()) {
 		m_colorBO.allocate();
 	}
+	if (m_positionVec.empty() || m_scaleVec.empty() || m_colorVec.empty()) {
+		return;
+	}
 	m_positionBO.setData(m_positionVec, GL_STATIC_DRAW);
 	m_scaleBO.setData(m_scaleVec, GL_STATIC_DRAW);
 	m_colorBO.setData(m_colorVec, GL_STATIC_DRAW);

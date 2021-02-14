@@ -12,7 +12,7 @@ class Scene {
 public:
 	explicit Scene(const std::string& filename);
 
-	void rehash();
+	bool refresh();
 	void update(std::shared_ptr<Particle> particle, float deltaTime);
 private:
 	static std::shared_ptr<Command> parseCommandRec(ofJson& json);
