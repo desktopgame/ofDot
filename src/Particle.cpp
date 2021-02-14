@@ -15,7 +15,8 @@ Particle::Particle(ofMesh& mesh, int drawMode) :
 	m_scaleVec(),
 	m_colorVec(),
 	m_amt(),
-	m_dirty(false)
+	m_dirty(false),
+	m_bufferAssigned(false)
 {
 	auto& vb = m_mesh.getVertices();
 	auto& ib = m_mesh.getIndices();
@@ -33,25 +34,31 @@ void Particle::emit(glm::vec3 position, glm::vec3 scale, glm::vec3 color) {
 }
 
 void Particle::update(int i, glm::vec3 position, glm::vec3 scale, glm::vec3 color) {
+	bufferAssign();
 	m_positionVec[i] = position;
 	m_scaleVec[i] = scale;
 	m_colorVec[i] = color;
-	this->m_dirty = true;
+	m_vbo.getAttributeBuffer(5).updateData(sizeof(glm::vec3) * i, sizeof(glm::vec3), &position.x);
+	m_vbo.getAttributeBuffer(6).updateData(sizeof(glm::vec3) * i, sizeof(glm::vec3), &scale.x);
+	m_vbo.getAttributeBuffer(7).updateData(sizeof(glm::vec3) * i, sizeof(glm::vec3), &color.x);
 }
 
 void Particle::position(int i, glm::vec3 position) {
+	bufferAssign();
 	m_positionVec[i] = position;
-	this->m_dirty = true;
+	m_vbo.getAttributeBuffer(5).updateData(sizeof(glm::vec3) * i, sizeof(glm::vec3), &position.x);
 }
 
 void Particle::scale(int i, glm::vec3 scale) {
+	bufferAssign();
 	m_scaleVec[i] = scale;
-	this->m_dirty = true;
+	m_vbo.getAttributeBuffer(6).updateData(sizeof(glm::vec3) * i, sizeof(glm::vec3), &scale.x);
 }
 
 void Particle::color(int i, glm::vec3 color) {
+	bufferAssign();
 	m_colorVec[i] = color;
-	this->m_dirty = true;
+	m_vbo.getAttributeBuffer(7).updateData(sizeof(glm::vec3) * i, sizeof(glm::vec3), &color.x);
 }
 
 void Particle::reserve(int size) {
@@ -68,6 +75,10 @@ void Particle::reserve(int size) {
 		m_colorVec.emplace_back(glm::vec3(0, 0, 0));
 	}
 	this->m_dirty = true;
+}
+
+void Particle::flush() {
+	this->m_dirty = false;
 }
 
 void Particle::compile() {
@@ -89,6 +100,7 @@ void Particle::compile() {
 	m_scaleBO.setData(m_scaleVec, GL_STATIC_DRAW);
 	m_colorBO.setData(m_colorVec, GL_STATIC_DRAW);
 	// バッファの割り当て
+	m_bufferAssigned = true;
 	const float stride = sizeof(float) * 3;
 	m_vbo.setAttributeBuffer(k_positionIndex, m_positionBO, 3, stride);
 	m_vbo.setAttributeDivisor(k_positionIndex, 1);
@@ -110,4 +122,21 @@ void Particle::clear() {
 void Particle::draw() {
 	compile();
 	m_vbo.drawElementsInstanced(GL_TRIANGLES, m_amt, m_positionVec.size());
+}
+// private
+void Particle::bufferAssign() {
+	if (m_bufferAssigned) {
+		return;
+	}
+	m_bufferAssigned = true;
+	// バッファの割り当て
+	const float stride = sizeof(float) * 3;
+	m_vbo.setAttributeBuffer(k_positionIndex, m_positionBO, 3, stride);
+	m_vbo.setAttributeDivisor(k_positionIndex, 1);
+
+	m_vbo.setAttributeBuffer(k_scaleIndex, m_scaleBO, 3, stride);
+	m_vbo.setAttributeDivisor(k_scaleIndex, 1);
+
+	m_vbo.setAttributeBuffer(k_colorIndex, m_colorBO, 3, stride);
+	m_vbo.setAttributeDivisor(k_colorIndex, 1);
 }

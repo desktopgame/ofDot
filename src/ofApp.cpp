@@ -19,6 +19,7 @@ void ofApp::setup() {
 	::srand((unsigned int)::time(NULL));
 	this->m_sphereParticle = std::make_shared<Particle>(m_sphereMesh, GL_TRIANGLES);
 	this->m_sphereParticle->reserve(20 * 20 * 20);
+	this->m_sphereParticle->compile();
 	int index = 0;
 	for (int x = -10; x < 10; x++) {
 		for (int y = -10; y < 10; y++) {

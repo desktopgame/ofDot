@@ -19,10 +19,13 @@ public:
 	void scale(int i, glm::vec3 scale);
 	void color(int i, glm::vec3 color);
 	void reserve(int size);
+	void flush();
 	void compile();
 	void clear();
 	void draw();
 private:
+	void bufferAssign();
+
 	ofMesh& m_mesh;
 	int m_drawMode;
 	ofVbo m_vbo;
@@ -34,5 +37,6 @@ private:
 	std::vector<glm::vec3> m_colorVec;
 	int m_amt;
 	bool m_dirty;
+	bool m_bufferAssigned;
 };
 #endif
