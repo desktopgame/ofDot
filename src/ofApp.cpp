@@ -8,7 +8,9 @@ ofApp::ofApp() :
 	m_scene("dot.json"),
 	m_easyCam(),
 	m_shader(),
-	m_frames(0)
+	m_frames(0),
+	m_ignoreDeltaTime(false),
+	m_firstDraw(false)
 {
 }
 
@@ -26,19 +28,30 @@ void ofApp::setup() {
 	}
 	m_easyCam.setPosition(glm::vec3(0, 0, -10));
 	m_easyCam.lookAt(glm::vec3(0, 0, 0), glm::vec3(0, 1, 0));
+	m_ignoreDeltaTime = true;
 }
 
 //--------------------------------------------------------------
 void ofApp::update() {
+	bool ignoreDeltaTime = false;
 	if (m_frames++ >= 60) {
+		// ホットリロード
 		if (m_scene.refresh()) {
 			m_sphereParticle->clear();
 			m_easyCam.setPosition(glm::vec3(0, 0, -10));
 			m_easyCam.lookAt(glm::vec3(0, 0, 0), glm::vec3(0, 1, 0));
+			// ホットリロード後は必ずデルタタイムを0.1にする
+			m_firstDraw = false;
+			ignoreDeltaTime = true;
 		}
 		m_frames = 0;
 	}
-	m_scene.update(m_sphereParticle, m_easyCam, static_cast<float>(ofGetLastFrameTime()));
+	float deltaTime = static_cast<float>(ofGetLastFrameTime());
+	if (m_ignoreDeltaTime) {
+		deltaTime = 0.1f;
+	}
+	m_scene.update(m_sphereParticle, m_easyCam, deltaTime);
+	m_ignoreDeltaTime = ignoreDeltaTime;
 }
 
 //--------------------------------------------------------------
@@ -46,6 +59,11 @@ void ofApp::draw() {
 	m_shader.begin();
 	m_easyCam.begin();
 	m_sphereParticle->draw();
+	if (!m_firstDraw) {
+		// 最初の描画はParticle.compileが走るのでデルタタイムを0.1にする
+		m_firstDraw = true;
+		m_ignoreDeltaTime = true;
+	}
 	//m_sphereVbo.drawElementsInstanced(GL_TRIANGLES, m_amt, m_xSize * m_ySize);
 	m_easyCam.end();
 	m_shader.end();

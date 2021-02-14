@@ -32,6 +32,8 @@ class ofApp : public ofBaseApp{
 		ofEasyCam m_easyCam;
 		ofShader m_shader;
 		int m_frames;
+		bool m_ignoreDeltaTime;
+		bool m_firstDraw;
 };
 
 void onError(unsigned int source, unsigned int type,

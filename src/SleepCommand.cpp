@@ -8,7 +8,6 @@ void SleepCommand::reset() {
 }
 void SleepCommand::update(std::shared_ptr<Particle>& particle, ofEasyCam& easyCam, float deltaTime) {
 	m_elapsed += deltaTime;
-	std::cout << m_elapsed << ", " << deltaTime << std::endl;
 }
 bool SleepCommand::isFinished() {
 	return m_elapsed >= s;
