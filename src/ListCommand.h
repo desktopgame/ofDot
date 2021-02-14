@@ -10,7 +10,7 @@ public:
 	explicit ListCommand(int id, std::vector<std::shared_ptr<Command>> commands);
 
 	void reset() override;
-	void update(std::shared_ptr<Particle>& particle, float deltaTime) override;
+	void update(std::shared_ptr<Particle>& particle, ofEasyCam& easyCam, float deltaTime) override;
 	bool isFinished() override;
 private:
 	int m_index;

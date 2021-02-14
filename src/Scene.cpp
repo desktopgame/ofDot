@@ -50,9 +50,9 @@ bool Scene::refresh() {
 	return true;
 }
 
-void Scene::update(std::shared_ptr<Particle> particle, float deltaTime) {
+void Scene::update(std::shared_ptr<Particle> particle, ofEasyCam& easyCam, float deltaTime) {
 	for (auto& cmdQueue : m_commandQueueVec) {
-		cmdQueue.update(particle, deltaTime);
+		cmdQueue.update(particle, easyCam, deltaTime);
 	}
 }
 // private

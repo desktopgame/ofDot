@@ -13,7 +13,7 @@ public:
 	explicit Scene(const std::string& filename);
 
 	bool refresh();
-	void update(std::shared_ptr<Particle> particle, float deltaTime);
+	void update(std::shared_ptr<Particle> particle, ofEasyCam& easyCam, float deltaTime);
 private:
 	static std::shared_ptr<Command> parseCommandRec(ofJson& json);
 	static std::shared_ptr<Command> parseCommand(ofJson& json);

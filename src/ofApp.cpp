@@ -38,7 +38,7 @@ void ofApp::update() {
 		}
 		m_frames = 0;
 	}
-	m_scene.update(m_sphereParticle, static_cast<float>(ofGetLastFrameTime()));
+	m_scene.update(m_sphereParticle, m_easyCam, static_cast<float>(ofGetLastFrameTime()));
 }
 
 //--------------------------------------------------------------

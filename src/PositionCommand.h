@@ -6,7 +6,7 @@
 class PositionCommand : public Command {
 public:
 	explicit PositionCommand(int id, glm::vec3 position);
-	void update(std::shared_ptr<Particle>& particle, float deltaTime) override;
+	void update(std::shared_ptr<Particle>& particle, ofEasyCam& easyCam, float deltaTime) override;
 	bool isFinished() override;
 
 	glm::vec3 position;

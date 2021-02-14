@@ -4,7 +4,7 @@ PositionCommand::PositionCommand(int id, glm::vec3 position) : Command(id), posi
 
 }
 
-void PositionCommand::update(std::shared_ptr<Particle>& particle, float deltaTime) {
+void PositionCommand::update(std::shared_ptr<Particle>& particle, ofEasyCam& easyCam, float deltaTime) {
 	particle->position(id, position);
 }
 

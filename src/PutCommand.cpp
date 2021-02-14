@@ -9,7 +9,7 @@ PutCommand::PutCommand(int id, glm::vec3 position, glm::vec3 scale, glm::vec3 co
 {
 }
 
-void PutCommand::update(std::shared_ptr<Particle>& particle, float deltaTime) {
+void PutCommand::update(std::shared_ptr<Particle>& particle, ofEasyCam& easyCam, float deltaTime) {
 	particle->update(id, position, scale, color);
 }
 

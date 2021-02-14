@@ -10,10 +10,10 @@ void ParallelCommand::reset() {
 		cmd->reset();
 	}
 }
-void ParallelCommand::update(std::shared_ptr<Particle>& particle, float deltaTime) {
+void ParallelCommand::update(std::shared_ptr<Particle>& particle, ofEasyCam& easyCam, float deltaTime) {
 	for (auto cmd : m_commands) {
 		if (!cmd->isFinished()) {
-			cmd->update(particle, deltaTime);
+			cmd->update(particle, easyCam, deltaTime);
 		}
 	}
 }

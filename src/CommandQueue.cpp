@@ -16,13 +16,13 @@ void CommandQueue::submit(std::shared_ptr<Command>& cmd) {
 	cmd->reset();
 }
 
-void CommandQueue::update(std::shared_ptr<Particle>& particle, float deltaTime) {
+void CommandQueue::update(std::shared_ptr<Particle>& particle, ofEasyCam& easyCam, float deltaTime) {
 	if (m_offset >= m_commands.size()) {
 		return;
 	}
 	particle->reserve(m_maxId + 1);
 	while (m_offset < m_commands.size()) {
-		m_commands.at(m_offset)->update(particle, deltaTime);
+		m_commands.at(m_offset)->update(particle, easyCam, deltaTime);
 		if (m_commands.at(m_offset)->isFinished()) {
 			m_offset++;
 			if (m_offset < m_commands.size()) {

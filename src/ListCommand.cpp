@@ -10,9 +10,9 @@ ListCommand::ListCommand(int id, std::vector<std::shared_ptr<Command>> commands)
 void ListCommand::reset() {
 	this->m_index = 0;
 }
-void ListCommand::update(std::shared_ptr<Particle>& particle, float deltaTime) {
+void ListCommand::update(std::shared_ptr<Particle>& particle, ofEasyCam& easyCam, float deltaTime) {
 	while (m_index < m_commands.size()) {
-		m_commands.at(m_index)->update(particle, deltaTime);
+		m_commands.at(m_index)->update(particle, easyCam, deltaTime);
 		if (m_commands.at(m_index)->isFinished()) {
 			m_index++;
 			deltaTime = 0;
