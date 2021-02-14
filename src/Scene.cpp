@@ -5,6 +5,7 @@
 #include "ScaleCommand.h"
 #include "ColorCommand.h"
 #include "SleepCommand.h"
+#include "ListCommand.h"
 
 Scene::Scene(const std::string& filename) :
 	m_filename(filename),
@@ -39,10 +40,7 @@ void Scene::rehash() {
 		ofJson& commands = queue["commands"];
 		for (int j = 0; j < static_cast<int>(commands.size()); j++) {
 			ofJson& cmd = commands.at(j);
-			auto cmdInst = parseCommand(cmd);
-			if (cmdInst) {
-				cmdQueue.submit(cmdInst);
-			}
+			cmdQueue.submit(parseCommandRec(cmd));
 		}
 		m_commandQueueVec.emplace_back(cmdQueue);
 	}
@@ -56,6 +54,22 @@ void Scene::update(std::shared_ptr<Particle> particle, float deltaTime) {
 	}
 }
 // private
+std::shared_ptr<Command> Scene::parseCommandRec(ofJson& json) {
+	if (json.contains("name") && json["name"].get<std::string>() == "list") {
+		std::vector<std::shared_ptr<Command>> commands;
+		ofJson& list = json["list"];
+		for (int k = 0; k < list.size(); k++) {
+			auto cmdInst = parseCommand(list.at(k));
+			if (cmdInst) {
+				commands.emplace_back(cmdInst);
+			}
+		}
+		return std::make_shared<ListCommand>(0, commands);
+	}
+	else {
+		return parseCommand(json);
+	}
+}
 std::shared_ptr<Command> Scene::parseCommand(ofJson& json) {
 	if (!json.contains("name")) {
 		return nullptr;

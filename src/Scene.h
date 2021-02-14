@@ -15,6 +15,7 @@ public:
 	void rehash();
 	void update(std::shared_ptr<Particle> particle, float deltaTime);
 private:
+	static std::shared_ptr<Command> parseCommandRec(ofJson& json);
 	static std::shared_ptr<Command> parseCommand(ofJson& json);
 	static glm::vec3 parseVec3(ofJson& json, std::string xKey, std::string yKey, std::string zKey);
 	std::string m_filename;
