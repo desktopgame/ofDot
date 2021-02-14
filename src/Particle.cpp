@@ -32,6 +32,44 @@ void Particle::emit(glm::vec3 position, glm::vec3 scale, glm::vec3 color) {
 	this->m_dirty = true;
 }
 
+void Particle::update(int i, glm::vec3 position, glm::vec3 scale, glm::vec3 color) {
+	m_positionVec[i] = position;
+	m_scaleVec[i] = scale;
+	m_colorVec[i] = color;
+	this->m_dirty = true;
+}
+
+void Particle::position(int i, glm::vec3 position) {
+	m_positionVec[i] = position;
+	this->m_dirty = true;
+}
+
+void Particle::scale(int i, glm::vec3 scale) {
+	m_scaleVec[i] = scale;
+	this->m_dirty = true;
+}
+
+void Particle::color(int i, glm::vec3 color) {
+	m_colorVec[i] = color;
+	this->m_dirty = true;
+}
+
+void Particle::reserve(int size) {
+	if (size < m_positionVec.size()) {
+		return;
+	}
+	while (m_positionVec.size() < size) {
+		m_positionVec.emplace_back(glm::vec3(0, 0, 0));
+	}
+	while (m_scaleVec.size() < size) {
+		m_scaleVec.emplace_back(glm::vec3(0, 0, 0));
+	}
+	while (m_colorVec.size() < size) {
+		m_colorVec.emplace_back(glm::vec3(0, 0, 0));
+	}
+	this->m_dirty = true;
+}
+
 void Particle::compile() {
 	if (!this->m_dirty) {
 		return;

@@ -14,6 +14,11 @@ public:
 	explicit Particle(ofMesh& mesh, int drawMode);
 
 	void emit(glm::vec3 position, glm::vec3 scale, glm::vec3 color);
+	void update(int i, glm::vec3 position, glm::vec3 scale, glm::vec3 color);
+	void position(int i, glm::vec3 position);
+	void scale(int i, glm::vec3 scale);
+	void color(int i, glm::vec3 color);
+	void reserve(int size);
 	void compile();
 	void clear();
 	void draw();
