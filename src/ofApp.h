@@ -1,10 +1,12 @@
 #pragma once
 
 #include "ofMain.h"
+#include "Particle.h"
 
 class ofApp : public ofBaseApp{
 
 	public:
+		explicit ofApp();
 		void setup();
 		void update();
 		void draw();
@@ -20,5 +22,17 @@ class ofApp : public ofBaseApp{
 		void windowResized(int w, int h);
 		void dragEvent(ofDragInfo dragInfo);
 		void gotMessage(ofMessage msg);
-		
+
+	private:
+		ofMesh m_sphereMesh;
+		std::shared_ptr<Particle> m_sphereParticle;
+
+		ofEasyCam m_easyCam;
+		ofShader m_shader;
+		bool m_init;
 };
+
+void onError(unsigned int source, unsigned int type,
+	unsigned int id, unsigned int severity,
+	int length, const char* message,
+	const void* userParam);
