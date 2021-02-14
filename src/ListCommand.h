@@ -9,6 +9,7 @@ class ListCommand : public Command {
 public:
 	explicit ListCommand(int id, std::vector<std::shared_ptr<Command>> commands);
 
+	void reset() override;
 	void update(std::shared_ptr<Particle>& particle, float deltaTime) override;
 	bool isFinished() override;
 private:

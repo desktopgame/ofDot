@@ -5,6 +5,11 @@ ParallelCommand::ParallelCommand(int id, std::vector<std::shared_ptr<Command>> c
 	: Command(id), m_commands(commands)
 {
 }
+void ParallelCommand::reset() {
+	for (auto cmd : m_commands) {
+		cmd->reset();
+	}
+}
 void ParallelCommand::update(std::shared_ptr<Particle>& particle, float deltaTime) {
 	for (auto cmd : m_commands) {
 		if (!cmd->isFinished()) {

@@ -13,6 +13,7 @@ void CommandQueue::submit(std::shared_ptr<Command>& cmd) {
 	if (m_maxId < cmd->id) {
 		m_maxId = cmd->id;
 	}
+	cmd->reset();
 }
 
 void CommandQueue::update(std::shared_ptr<Particle>& particle, float deltaTime) {
@@ -24,6 +25,7 @@ void CommandQueue::update(std::shared_ptr<Particle>& particle, float deltaTime) 
 		m_commands.at(m_offset)->update(particle, deltaTime);
 		if (m_commands.at(m_offset)->isFinished()) {
 			m_offset++;
+			m_commands.at(m_offset)->reset();
 			deltaTime = 0;
 		} else {
 			break;

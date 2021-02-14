@@ -7,7 +7,9 @@ ListCommand::ListCommand(int id, std::vector<std::shared_ptr<Command>> commands)
 	m_commands(commands)
 {
 }
-
+void ListCommand::reset() {
+	this->m_index = 0;
+}
 void ListCommand::update(std::shared_ptr<Particle>& particle, float deltaTime) {
 	while (m_index < m_commands.size()) {
 		m_commands.at(m_index)->update(particle, deltaTime);
