@@ -61,6 +61,18 @@ void Particle::color(int i, glm::vec3 color) {
 	m_vbo.getAttributeBuffer(7).updateData(sizeof(glm::vec3) * i, sizeof(glm::vec3), &color.x);
 }
 
+glm::vec3 Particle::position(int i) const {
+	return m_positionVec[i];
+}
+
+glm::vec3 Particle::scale(int i) const {
+	return m_scaleVec[i];
+}
+
+glm::vec3 Particle::color(int i) const {
+	return m_colorVec[i];
+}
+
 void Particle::reserve(int size) {
 	if (size < m_positionVec.size()) {
 		return;

@@ -18,6 +18,9 @@ public:
 	void position(int i, glm::vec3 position);
 	void scale(int i, glm::vec3 scale);
 	void color(int i, glm::vec3 color);
+	glm::vec3 position(int i) const;
+	glm::vec3 scale(int i) const;
+	glm::vec3 color(int i) const;
 	void reserve(int size);
 	void flush();
 	void compile();
