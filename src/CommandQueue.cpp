@@ -24,6 +24,7 @@ void CommandQueue::update(std::shared_ptr<Particle>& particle, float deltaTime) 
 		m_commands.at(m_offset)->update(particle, deltaTime);
 		if (m_commands.at(m_offset)->isFinished()) {
 			m_offset++;
+			deltaTime = 0;
 		} else {
 			break;
 		}
