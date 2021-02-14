@@ -3,7 +3,7 @@ const dot = require('./dot');
 
 const draw = (drawCommands, cameraCommands) => {
     //
-    // write your code in here.
+    // ここに描画、カメラ制御のコードを書きます。
     //
     cameraCommands.push(dot.cameraPosition({x: 0, y: 0, z: -20}));
     let id = 0;
